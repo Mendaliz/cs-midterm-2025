@@ -1,0 +1,36 @@
+name: Docker Flask Test
+
+on: 
+  push:
+    branches: [ main ]
+
+jobs:
+  test-docker-flask:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Build Docker image
+        run: docker build -t flask-app .
+          
+      - name: Run Docker container
+        run: |
+          docker run -d -p 8085:5001 --name flask-server flask-app
+          sleep 5
+          
+      # Verification test
+      - name: Run client test
+        run: python verification.py
+
+      # Other tests
+      - name: Run client test
+        run: python verification.py
+          
+      # Stop and delete container
+      - name: Stop container
+        if: always()
+        run: |
+          docker stop flask-server || true
+          docker rm flask-server || true

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Form{% endblock %}
+
+{% block content %}
+{% for char in data %}
+    <span>{{ char.name }}. Height: {{ char.height }}. Gender: </span>
+    
+    {% if char.gender == 'n/a' or char.gender == 'none' %}
+        <span class="none-gender">{{ char.gender }}</span>
+    {% else %}
+        <span>{{ char.gender }}</span>
+    {% endif %}
+{% endfor %}
+{% endblock %}
