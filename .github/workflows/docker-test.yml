@@ -26,7 +26,7 @@ jobs:
 
       # Other tests
       - name: Run client test
-        run: python verification.py
+        run: docker exec flask-server python client.py
           
       # Stop and delete container
       - name: Stop container
